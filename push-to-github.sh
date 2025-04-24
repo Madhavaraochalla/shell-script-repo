@@ -11,7 +11,7 @@ GITHUB_TOKEN="${GITHUB_TOKEN}"
 AUTH_REMOTE_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git"
 
 # Files to commit
-FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" "test")
+FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" )
 
 # Files to remove
 FILES_TO_REMOVE=("test")
@@ -56,8 +56,18 @@ for file in "${FILES[@]}"; do
     fi
 done
 
+# Remove files
+for file in "${FILES_TO_REMOVE[@]}"; do
+    if [ -f "$file" ]; then
+        git rm "$file"
+        echo "Removed $file from repository."
+    else
+        echo "Warning: $file does not exist."
+    fi
+done
+
 # Commit changes
-git commit -m "Add deployment and user creation shell scripts" || echo "No changes to commit"
+git commit -m "Add and remove deployment and user creation shell scripts" || echo "No changes to commit"
 
 # Create and switch to a new branch
 BRANCH="auto-deploy-branch"
