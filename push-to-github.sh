@@ -5,7 +5,7 @@ set -e
 # Your GitHub username and repo name
 GITHUB_USER="Madhavaraochalla"
 REPO_NAME="shell-script-repo"
-GITHUB_TOKEN="${GITHUB_TOKEN}"
+GITHUB_TOKEN="${GITHUB_TOKEN}"ls
 
 # Remote with token for HTTPS push
 AUTH_REMOTE_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git"
@@ -14,7 +14,7 @@ AUTH_REMOTE_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REP
 FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh")
 
 # Files to remove (if needed)
-FILES_TO_REMOVE=("")
+FILES_TO_REMOVE=("deploy-grafana.sh")
 
 # Git config to fix line ending warnings
 git config --global core.autocrlf input
