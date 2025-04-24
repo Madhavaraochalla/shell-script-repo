@@ -10,9 +10,6 @@ REPO_NAME="shell-script-repo"
 # This assumes you've already done: export GITHUB_TOKEN=your_token_value
 AUTH_REMOTE_URL="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${REPO_NAME}.git"
 
-
-
-
 # Files to commit (Ensure these are valid files in the current directory)
 FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" "Readme.md")
 
