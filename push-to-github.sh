@@ -13,6 +13,9 @@ AUTH_REMOTE_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REP
 # Files to commit
 FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" "test")
 
+# Files to remove
+FILES_TO_REMOVE=("test")
+
 # Git config to fix line ending warnings
 git config --global core.autocrlf input
 
