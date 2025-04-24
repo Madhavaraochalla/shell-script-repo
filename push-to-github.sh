@@ -66,8 +66,14 @@ for file in "${FILES_TO_REMOVE[@]}"; do
     fi
 done
 
-# Commit changes
-git commit -m "Add and remove deployment and user creation shell scripts" || echo "No changes to commit"
+# Get the number of commits so far
+commit_count=$(git rev-list --count HEAD)
+
+# Generate a commit message dynamically based on the commit count
+commit_message="Commit $commit_count: Change script"
+
+# Commit changes with the dynamic commit message
+git commit -m "$commit_message" || echo "No changes to commit"
 
 # Show added/removed files and commit ID
 echo "Files added and committed:"
