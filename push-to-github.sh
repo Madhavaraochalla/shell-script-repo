@@ -11,7 +11,10 @@ GITHUB_TOKEN="${GITHUB_TOKEN}"
 AUTH_REMOTE_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git"
 
 # Files to commit
-FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" "test")
+FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" "c1" "c2")
+
+# Files to remove
+FILES_TO_REMOVE=("test")
 
 # Git config to fix line ending warnings
 git config --global core.autocrlf input
@@ -44,23 +47,33 @@ git remote remove origin 2>/dev/null || true
 git remote add origin "$AUTH_REMOTE_URL"
 
 # Add files
-added_files=""
 for file in "${FILES[@]}"; do
     if [ -f "$file" ]; then
         git add "$file"
-        added_files+="$file "
         echo "Added $file"
     else
         echo "Warning: $file does not exist."
     fi
 done
 
-# Commit changes
-commit_msg="Add deployment and user creation shell scripts"
-git commit -m "$commit_msg" || echo "No changes to commit"
+# Remove files
+for file in "${FILES_TO_REMOVE[@]}"; do
+    if [ -f "$file" ]; then
+        git rm "$file"
+        echo "Removed $file from repository."
+    else
+        echo "Warning: $file does not exist."
+    fi
+done
 
-# Get the commit ID
-commit_id=$(git log -1 --format=%h)
+# Commit changes
+git commit -m "Add and remove deployment and user creation shell scripts" || echo "No changes to commit"
+
+# Show added/removed files and commit ID
+echo "Files added and committed:"
+git diff --cached --name-only
+commit_id=$(git log -1 --format=%H)
+echo "Commit ID: $commit_id"
 
 # Create and switch to a new branch
 BRANCH="auto-deploy-branch"
@@ -72,9 +85,6 @@ echo "Pushing to GitHub repository $REPO_NAME..."
 git branch -M main
 git push -u origin main
 
-# Output the details of the commit
-echo "✅ Pushed the following files to GitHub repo: $REPO_NAME"
-echo "Files added: $added_files"
-echo "Commit ID: $commit_id"
-echo "Commit message: $commit_msg"
+# Show the commit ID of the pushed changes
 echo "✅ Pushed scripts to GitHub repo: $REPO_NAME"
+echo "Commit ID of pushed changes: $commit_id"
