@@ -11,7 +11,7 @@ GITHUB_TOKEN="${GITHUB_TOKEN}"
 AUTH_REMOTE_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git"
 
 # Files to commit
-FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" )
+FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" "test")
 
 # Git config to fix line ending warnings
 git config --global core.autocrlf input
