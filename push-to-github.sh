@@ -4,7 +4,7 @@ set -e
 
 # Your GitHub username and repo name
 GITHUB_USER="Madhavaraochalla"
-REPO_NAME="shell-script-repo"
+REPO_NAME="Shell-script-repo"
 GITHUB_TOKEN="${GITHUB_TOKEN}"
 
 # Remote with token for HTTPS push
