@@ -66,13 +66,11 @@ for file in "${FILES_TO_REMOVE[@]}"; do
     fi
 done
 
-# Count the current number of commits
+# Get commit count
 commit_count=$(git rev-list --count HEAD)
+commit_message="$commit_count $(git diff --cached --name-only | tr '\n' ' ')"
 
-# Generate the commit message
-commit_message="commit $commit_count"
-
-# Commit changes
+# Commit changes with dynamic message
 git commit -m "$commit_message" || echo "No changes to commit"
 
 # Show added/removed files and commit ID
