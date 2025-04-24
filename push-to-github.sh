@@ -4,22 +4,22 @@ set -e
 
 # Your GitHub username and repo name
 GITHUB_USER="Madhavaraochalla"
-REPO_NAME="Shell-script-repo"
+REPO_NAME="repo-23-dk"
 GITHUB_TOKEN="${GITHUB_TOKEN}"
 
 # Remote with token for HTTPS push
 AUTH_REMOTE_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git"
 
-# Files to commit
-FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" "test1")
+# Files to commit (Ensure these are valid files in the current directory)
+FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh")
 
-# Files to remove
-FILES_TO_REMOVE=("test1")
+# Files to remove (if needed)
+FILES_TO_REMOVE=("")
 
 # Git config to fix line ending warnings
 git config --global core.autocrlf input
 
-# Create GitHub repo if it doesn't exist
+# Check if repo exists and create if not
 echo "Checking if repository $REPO_NAME exists on GitHub..."
 repo_exists=$(curl -s -o /dev/null -w "%{http_code}" \
     -u "$GITHUB_USER:$GITHUB_TOKEN" \
@@ -40,6 +40,7 @@ fi
 if [ ! -d .git ]; then
     echo "Initializing Git repository..."
     git init
+    git commit --allow-empty -m "Initial commit"  # Ensure initial commit exists
 fi
 
 # Set or reset remote origin
@@ -59,19 +60,19 @@ done
 # Remove files
 for file in "${FILES_TO_REMOVE[@]}"; do
     if [ -f "$file" ]; then
-        git rm "$file"
+        git rm --cached "$file" || git rm -f "$file"  # Force removal if the file has local modifications
         echo "Removed $file from repository."
     else
         echo "Warning: $file does not exist."
     fi
 done
 
-# Get commit count
-commit_count=$(git rev-list --count HEAD)
-commit_message="$commit_count $(git diff --cached --name-only | tr '\n' ' ')"
+# Get commit count and create commit message
+commit_count=$(git rev-list --count HEAD || echo "0")  # If no commits, count will be 0
+commit_message="Commit $commit_count: $(git diff --cached --name-only | tr '\n' ' ')"
 
 # Commit changes with dynamic message
-git commit -m "Commit-$commit_message" || echo "No changes to commit"
+git commit -m "$commit_message" || echo "No changes to commit"
 
 # Show added/removed files and commit ID
 echo "Files added and committed:"
