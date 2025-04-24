@@ -62,3 +62,4 @@ kubectl rollout status deployment/grafana
 echo "Launching Grafana service in browser..."
 minikube service grafana
 
+###-----#####
