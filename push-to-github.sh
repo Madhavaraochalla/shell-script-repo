@@ -11,10 +11,7 @@ GITHUB_TOKEN="${GITHUB_TOKEN}"
 AUTH_REMOTE_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git"
 
 # Files to commit
-FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" )
-
-# Files to remove
-FILES_TO_REMOVE=("test")
+FILES=("create-users.sh" "deploy-grafana.sh" "push-to-github.sh" "test")
 
 # Git config to fix line ending warnings
 git config --global core.autocrlf input
@@ -47,27 +44,23 @@ git remote remove origin 2>/dev/null || true
 git remote add origin "$AUTH_REMOTE_URL"
 
 # Add files
+added_files=""
 for file in "${FILES[@]}"; do
     if [ -f "$file" ]; then
         git add "$file"
+        added_files+="$file "
         echo "Added $file"
     else
         echo "Warning: $file does not exist."
     fi
 done
 
-# Remove files
-for file in "${FILES_TO_REMOVE[@]}"; do
-    if [ -f "$file" ]; then
-        git rm "$file"
-        echo "Removed $file from repository."
-    else
-        echo "Warning: $file does not exist."
-    fi
-done
-
 # Commit changes
-git commit -m "Add and remove deployment and user creation shell scripts" || echo "No changes to commit"
+commit_msg="Add deployment and user creation shell scripts"
+git commit -m "$commit_msg" || echo "No changes to commit"
+
+# Get the commit ID
+commit_id=$(git log -1 --format=%h)
 
 # Create and switch to a new branch
 BRANCH="auto-deploy-branch"
@@ -79,4 +72,9 @@ echo "Pushing to GitHub repository $REPO_NAME..."
 git branch -M main
 git push -u origin main
 
+# Output the details of the commit
+echo "✅ Pushed the following files to GitHub repo: $REPO_NAME"
+echo "Files added: $added_files"
+echo "Commit ID: $commit_id"
+echo "Commit message: $commit_msg"
 echo "✅ Pushed scripts to GitHub repo: $REPO_NAME"
