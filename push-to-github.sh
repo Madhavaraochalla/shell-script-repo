@@ -71,7 +71,7 @@ commit_count=$(git rev-list --count HEAD)
 commit_message="$commit_count $(git diff --cached --name-only | tr '\n' ' ')"
 
 # Commit changes with dynamic message
-git commit -m "$commit_message" || echo "No changes to commit"
+git commit -m "Commit-$commit_message" || echo "No changes to commit"
 
 # Show added/removed files and commit ID
 echo "Files added and committed:"
