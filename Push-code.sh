@@ -11,7 +11,7 @@ REPO_NAME="shell-script-repo"
 AUTH_REMOTE_URL="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${REPO_NAME}.git"
 
 # Files to commit (Ensure these are valid files in the current directory)
-FILES=("delete-repo.sh" "create-users.sh" " deploy-grafana.sh" "Push-code.sh" "delete.sh" "deploy.sh")
+FILES=("delete-repo.sh" "create-users.sh" " deploy-grafana.sh" "Push-code.sh" "delete.sh" "deploy.sh" "Readme.md")
 
 # Files to remove (if needed)
 FILES_TO_REMOVE=("") 
