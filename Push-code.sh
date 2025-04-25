@@ -91,8 +91,8 @@ echo "✅ Switched to branch: $BRANCH"
 
 # Push to GitHub
 echo "Pushing to GitHub repository $REPO_NAME..."
-git branch -M master
-git push -u origin master
+git branch -M main
+git push -u origin main
 
 # Show the commit ID of the pushed changes
 echo "✅ Pushed scripts to GitHub repo: $REPO_NAME"
