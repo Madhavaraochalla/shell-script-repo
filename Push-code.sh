@@ -14,7 +14,7 @@ AUTH_REMOTE_URL="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER
 FILES=("delete-repo.sh" "create-users.sh" " deploy-grafana.sh" "Push-code.sh" "delete.sh" "deploy.sh" "Readme.md")
 
 # Files to remove (if needed)
-FILES_TO_REMOVE=("") 
+FILES_TO_REMOVE=("push-to-github.sh") 
 
 # Git config to fix line ending warnings
 git config --global core.autocrlf input
