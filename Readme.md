@@ -55,3 +55,15 @@ export GITHUB_TOKEN=****************
 
 to run script
 ./File-name
+
+
+Usage  
+
+Normal run (actually does everything):
+
+    ./your-script.sh
+
+
+Dry-run mode (only shows what it would do):
+
+    ./your-script.sh --dry-run 
