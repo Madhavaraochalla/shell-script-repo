@@ -89,3 +89,9 @@ You also have an optional git add . command (which can add all files), but it's 
 
 ### Optional: Stage all local changes (Uncomment the below line if you want to add all files)
 # $DRYRUN || git add .
+
+
+When ever using git add. comment this line first then only git add . works 
+
+# Files to commit
+FILES=("delete-repo.sh" "create-users.sh" "deploy-grafana.sh" "Push-code.sh" "delete.sh" "deploy.sh" "Readme.md")
