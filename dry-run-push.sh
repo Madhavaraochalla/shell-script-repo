@@ -17,7 +17,7 @@ REPO_NAME="shell-script-repo"
 AUTH_REMOTE_URL="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${REPO_NAME}.git"
 
 # Files to commit
-FILES=("delete-repo.sh" "create-users.sh" "deploy-grafana.sh" "push-code.sh" "delete.sh" "deploy.sh" "Readme.md" "dry-run-push.sh")
+#FILES=("delete-repo.sh" "create-users.sh" "deploy-grafana.sh" "Push-code.sh" "delete.sh" "deploy.sh" "Readme.md")
 
 # Files to remove (if needed)
 FILES_TO_REMOVE=("") 
@@ -74,6 +74,9 @@ else
     echo "(dry-run) Would pull latest changes."
 fi
 
+### Optional: Stage all local changes (Uncomment the below line if you want to add all files)
+$DRYRUN || git add .
+
 # Add files
 for file in "${FILES[@]}"; do
     if [ -f "$file" ]; then
@@ -100,7 +103,7 @@ done
 
 # Get commit count and create message
 commit_count=$(git rev-list --count HEAD || echo "0")
-commit_message="Commit $commit_count: $(git diff --cached --name-only | tr '\n' ' ')"
+commit_message="Commit $commit_count: $(git diff --cached --name-only | tr '\n' ' ')" 
 
 # Commit changes
 if ! $DRYRUN; then
@@ -127,8 +130,8 @@ echo "✅ Switched to branch: $BRANCH"
 # Push to GitHub
 echo "Pushing to GitHub repository $REPO_NAME..."
 if ! $DRYRUN; then
-    git branch -M master
-    git push -u origin master
+    git branch -M main
+    git push -u origin main
 else
     echo "(dry-run) Would push branch main to remote."
 fi
