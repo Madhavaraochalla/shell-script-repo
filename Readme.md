@@ -67,3 +67,25 @@ Normal run (actually does everything):
 Dry-run mode (only shows what it would do):
 
     ./your-script.sh --dry-run 
+
+
+
+What’s happening in the script:
+
+The script adds files that you’ve listed in the FILES array (e.g., delete-repo.sh, create-users.sh, etc.). This part is done with:
+
+
+for file in "${FILES[@]}"; do
+    if [ -f "$file" ]; then
+        if ! $DRYRUN; then
+            git add "$file"
+        fi
+        echo "Added $file"
+    else
+        echo "Warning: $file does not exist."
+    fi
+done
+You also have an optional git add . command (which can add all files), but it's commented out by default, like this:
+
+### Optional: Stage all local changes (Uncomment the below line if you want to add all files)
+# $DRYRUN || git add .
