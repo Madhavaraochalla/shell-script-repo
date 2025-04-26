@@ -17,7 +17,7 @@ REPO_NAME="shell-script-repo"
 AUTH_REMOTE_URL="https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${REPO_NAME}.git"
 
 # Files to commit
-FILES=("delete-repo.sh" "create-users.sh" "deploy-grafana.sh" "Push-code.sh" "delete.sh" "deploy.sh" "Readme.md" "dry-run-push.sh")
+FILES=("delete-repo.sh" "create-users.sh" "deploy-grafana.sh" "push-code.sh" "delete.sh" "deploy.sh" "Readme.md" "dry-run-push.sh")
 
 # Files to remove (if needed)
 FILES_TO_REMOVE=("") 
@@ -127,8 +127,8 @@ echo "✅ Switched to branch: $BRANCH"
 # Push to GitHub
 echo "Pushing to GitHub repository $REPO_NAME..."
 if ! $DRYRUN; then
-    git branch -M main
-    git push -u origin main
+    git branch -M master
+    git push -u origin master
 else
     echo "(dry-run) Would push branch main to remote."
 fi
