@@ -95,3 +95,153 @@ When ever using git add. comment this line first then only git add . works
 
 # Files to commit
 FILES=("delete-repo.sh" "create-users.sh" "deploy-grafana.sh" "Push-code.sh" "delete.sh" "deploy.sh" "Readme.md")
+
+
+
+Section  2
+# 🐧 Shell Script Automation Repository
+
+This repository provides simple and effective shell scripts to automate DevOps tasks like:
+
+- Deploying applications to Kubernetes (Minikube)
+- Managing GitHub repositories and pushing code
+- Creating Linux users
+- Deploying monitoring tools like Grafana
+
+---
+
+## 🛠️ Prerequisites
+
+Before running these scripts, make sure your system has:
+
+| Tool         | Purpose                              | Installation Guide                           |
+|--------------|--------------------------------------|----------------------------------------------|
+| Git          | Clone and manage Git repositories    | https://git-scm.com/downloads                |
+| Docker       | Required by Minikube                 | https://docs.docker.com/get-docker/          |
+| Minikube     | Local Kubernetes cluster              | https://minikube.sigs.k8s.io/docs/start/     |
+| kubectl      | Control Kubernetes cluster            | https://kubernetes.io/docs/tasks/tools/      |
+| Bash         | Run shell scripts (default in Linux) | Already available on Linux/Mac               |
+| GitHub Token | For GitHub automation                 | [Generate a token](https://github.com/settings/tokens) with `repo` and `delete_repo` permissions |
+
+---
+
+## 🔑 Export Your GitHub Token
+
+Before pushing or deleting repos from GitHub, run:
+
+```bash
+export GITHUB_TOKEN=your_personal_access_token
+📁 Script Overview & Usage
+1. deploy.sh
+Deploys Kubernetes resources from the cloned application repo to Minikube.
+
+bash
+Copy
+Edit
+./deploy.sh
+2. delete.sh
+Deletes the Kubernetes resources that were created by deploy.sh.
+
+bash
+Copy
+Edit
+./delete.sh
+3. push-code.sh / push-to-github.sh
+Pushes selected files to your GitHub repo automatically. It also creates the repo if it doesn’t exist.
+
+bash
+Copy
+Edit
+./push-code.sh
+# or
+./push-to-github.sh
+Make sure to set:
+
+bash
+Copy
+Edit
+GITHUB_USER="your-username"
+REPO_NAME="your-repo-name"
+FILES=("file1.sh" "file2.sh")
+4. delete-repo.sh
+Deletes a GitHub repo using the GitHub API. Requires delete_repo permission in your token.
+
+bash
+Copy
+Edit
+./delete-repo.sh
+5. deploy-grafana.sh
+Deploys Grafana to your Kubernetes cluster.
+
+bash
+Copy
+Edit
+./deploy-grafana.sh
+6. create-users.sh
+Creates Linux users from a predefined list.
+
+bash
+Copy
+Edit
+./create-users.sh
+7. dry-run-push.sh
+Simulates what would happen during a GitHub push without actually pushing.
+
+bash
+Copy
+Edit
+./dry-run-push.sh
+✅ Step-by-Step Example: Pushing Files to GitHub
+Export your GitHub token:
+
+bash
+Copy
+Edit
+export GITHUB_TOKEN=your_token_here
+Edit push-code.sh or push-to-github.sh and set your info:
+
+bash
+Copy
+Edit
+GITHUB_USER="your-username"
+REPO_NAME="your-repo-name"
+FILES=("file1.sh" "file2.sh")
+Run the script:
+
+bash
+Copy
+Edit
+./push-code.sh
+💡 Tips
+Make scripts executable:
+
+bash
+Copy
+Edit
+chmod +x script-name.sh
+Check Kubernetes objects:
+
+bash
+Copy
+Edit
+kubectl get pods
+kubectl get deployments
+kubectl get services
+For Minikube Dashboard:
+
+bash
+Copy
+Edit
+minikube dashboard
+🧼 Cleaning Up
+To stop Minikube and remove deployed components:
+
+bash
+Copy
+Edit
+./delete.sh
+minikube stop
+
+
+
+
